@@ -24,7 +24,7 @@ const addFk = `ALTER TABLE authors
 const helper = (sql, res) => {
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log(res);
+    console.table(res);
   });
 };
 
