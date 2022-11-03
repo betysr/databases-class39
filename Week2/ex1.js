@@ -21,44 +21,25 @@ const addMentorColumn = `ALTER TABLE authors
 const addFk = `ALTER TABLE authors
   ADD FOREIGN KEY (mentor) REFERENCES authors(author_id);`;
 
+const helper = (sql, res) => {
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log(res);
+  });
+};
+
 con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-  con.query("DROP DATABASE IF EXISTS week2_db;", function (err, result) {
-    // if exist drop database week2_db
-    if (err) throw err;
-    console.log("Database : week2_db dropped!");
-  });
-
-  con.query("CREATE DATABASE IF NOT EXISTS week2_db;", function (err, result) {
-    // creating database week2_db
-    if (err) throw err;
-    console.log("Database : week2_db created!");
-  });
-
-  con.query("USE week2_db;", function (err, result) {
-    // use database
-    if (err) throw err;
-    console.log("Database : week2_db!");
-  });
-
-  con.query(createAuthorsTable, function (err, result) {
-    // creating authors table
-    if (err) throw err;
-    console.log("Authors table created!");
-  });
-
-  con.query(addMentorColumn, function (err, result) {
-    // add mentor column
-    if (err) throw err;
-    console.log("Mentor column added!");
-  });
-
-  con.query(addFk, function (err, result) {
-    // add foreign key
-    if (err) throw err;
-    console.log("Foreign key added!");
-  });
+  helper("DROP DATABASE IF EXISTS week2_db;", "Database : week2_db dropped!");
+  helper(
+    "CREATE DATABASE IF NOT EXISTS week2_db;",
+    "Database : week2_db created!"
+  );
+  helper("USE week2_db;", "Database : week2_db!");
+  helper(createAuthorsTable, "Authors table created!");
+  helper(addMentorColumn, "Mentor column added!");
+  helper(addFk, "Foreign key added!");
 
   con.end();
 });
