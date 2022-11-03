@@ -82,39 +82,20 @@ const insertAuthorWithPaper = `INSERT authorWithPaper(author_id, paper_id)
                                         (9,4),
                                         (11,3);`;
 
+const helper = (sql, res) => {
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.table(res);
+  });
+};
+
 con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-
-  con.query(createResearchPapersTable, function (err, result) {
-    // create table
-    if (err) throw err;
-    console.log("Research_papers table created!");
-  });
-
-  con.query(authorWithPapers, function (err, result) {
-    // create table
-    if (err) throw err;
-    console.log("AuthorWithPaper table created!");
-  });
-
-  con.query(insertAuthors, function (err, result) {
-    // insert values
-    if (err) throw err;
-    console.log("Inserted into authors table!");
-  });
-
-  con.query(insertResearchPaper, function (err, result) {
-    // insert values
-    if (err) throw err;
-    console.log("Inserted into research_paper table!");
-  });
-
-  con.query(insertAuthorWithPaper, function (err, result) {
-    // insert values
-    if (err) throw err;
-    console.log("Inserted into authorWithPaper table!");
-  });
-
+  helper(createResearchPapersTable, "Research_papers table created!");
+  helper(authorWithPapers, "AuthorWithPaper table created!");
+  helper(insertAuthors, "Inserted into authors table!");
+  helper(insertResearchPaper, "Inserted into research_paper table!");
+  helper(insertAuthorWithPaper, "Inserted into authorWithPaper table!");
   con.end();
 });
