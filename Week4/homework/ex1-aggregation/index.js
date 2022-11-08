@@ -84,7 +84,7 @@ async function main() {
     try {
         await client.connect();
         console.log("Connected!");
-        //await getTotalPopulationByYear(client,"Netherlands");
+        await getTotalPopulationByYear(client,"Netherlands");
         await getTotalPopulationByContinent(client, "100+", 2020);
     } catch (err) {
         console.error(err);
